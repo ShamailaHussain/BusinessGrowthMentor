@@ -264,18 +264,6 @@ function handleQuickReply(senderID, quickReply, messageId) {
             }, 2, senderID);
             break;
 
-        case 'Email Marketing':
-
-            fbService.sendTextMessage(senderID, "Awesome, we’ll set it up together step by step. Once you’re ready to start, say “let’s go!”  ");
-
-            break;
-
-        case 'Upselling Products':
-
-            fbService.sendTextMessage(senderID, "I can give you some tips for upselling to loyal customers, pick one!");
-
-            break;
-
         default:
             sendToDialogFlow(senderID, quickReplyPayload);
             break;
@@ -294,7 +282,7 @@ function handleEcho(messageId, appId, metadata) {
 function handleDialogFlowAction(sender, action) {
     console.log(`handleDialogflowAction: ${action}`)
     switch (action) {
-        default:
+
         case "unsubscribe":
             userService.newsletterSettings(function (updated) {
                 if (updated) {
@@ -305,9 +293,11 @@ function handleDialogFlowAction(sender, action) {
                 }
             }, 0, sender);
             break;
-
-    }
-}
+            default:
+            			//unhandled action, just send back the text
+                        handleMessages(messages, sender);
+            	}
+            }
 
 function handleMessage(message, sender) {
     console.log(`handle message : ${JSON.stringify(message)}`);
@@ -871,7 +861,7 @@ async function receivedTimeintent(intentData, senderId) {
             }
         };
         await GC.insertEvent(event);
-        await FM.sendMessage(`Appointment is set on ${dts}`, senderId);
+        await FM.sendMessage(`Your call is scheduled for ${dts}`, senderId);
     } else {
         await FM.sendMessage(`Sorry, we are not available on ${dts}`, senderId);
     }
