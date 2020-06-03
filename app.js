@@ -293,9 +293,44 @@ function handleDialogFlowAction(sender, action) {
                 }
             }, 0, sender);
             break;
+            case: "choiceproductupsell":
+            handleMessages(messages,sender)
+            let replies = [
+
+                  {
+                      "content_type": "text",
+                      "title": "Tip 1",
+                      "payload": "Tip 1"
+                  },
+                  {
+                      "content_type": "text",
+                      "title": "Tip 2",
+                      "payload": "Tip 2"
+                  },
+                  {
+                      "content_type": "text",
+                      "title": "Tip 2",
+                      "payload": "Tip 1"
+                  },
+                  {
+                      "content_type": "text",
+                      "title": "Tip 3",
+                      "payload": "Tip 3"
+                  },
+                  {
+                      "content_type": "text",
+                      "title": "Tip 4",
+                      "payload": "Tip 4"
+                  }
+
+                ];
+              sendQuickReply(sender, message.quickReplies.title, replies);
+              break;
+            
+
             default:
             			//unhandled action, just send back the text
-                        handleMessage(messages, sender);
+                        handleMessages(messages, sender);
             	}
             }
 
